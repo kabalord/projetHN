@@ -8,7 +8,7 @@ library(jsonlite)
 #Les fonctions
 ##Supprimer les caracteres accentues et espace superflus
 delete.accent <- function(x) {
-  x <- chartr("????????????????", "eeeeEEEEaAcCIIii", x)
+  x <- chartr("éèêëÉÈÊËàÀçÇÎÏîï", "eeeeEEEEaAcCIIii", x)
   x <- gsub("(^\\s+|\\s+$|(?<=\\s)\\s)","",x, perl=T)
   return(x)
 }
@@ -33,7 +33,7 @@ remplacer.nom.pays <- function(v1,v2,data){
 #Fin les fonctions
 
 ##Creation de la premiere df pour la jointure
-#Utilisation du webscrapping pour la recup?ration d'information sur le site ci dessous
+#Utilisation du webscrapping pour la recupération d'information sur le site ci dessous
 url <- "https://www.populationdata.net/palmares/esperance-de-vie/"
 pays <- str_to_upper(delete.accent(read_html(url) %>% html_nodes('td:nth-child(2)') %>% html_text()))
 continent <- str_to_upper(delete.accent(read_html(url) %>% html_nodes('td:nth-child(3)') %>% html_text()))
@@ -55,7 +55,7 @@ colnames(information.pays) <- c("Pays","Continent","Esperance_vie","Mortalite_in
                                 "tourisme","pib-par-habitant","Natalite","Superficie")
 
 ##Creation de la deuxieme df pour la jointure
-#Utilisation du webscrapping pour la recup?ration d'information sur le site ci dessous
+#Utilisation du webscrapping pour la recupération d'information sur le site ci dessous
 url <- "https://jeretiens.net/tous-les-pays-du-monde-et-leur-capitale/" 
 capitals_2 <- str_to_upper(delete.accent(read_html(url) %>% html_nodes("tr+ tr td:nth-child(2)") %>% html_text()))
 pays_2 <- str_to_upper(delete.accent(read_html(url) %>% html_nodes("tr+ tr td:nth-child(1)") %>% html_text()))
@@ -70,7 +70,7 @@ pays_2 <- remplacer.nom.pays(v1,v2,pays_2)
 #Creation de la deuxieme df contenant les pays et leur capitale
 collecte.pays.capitals <- data.frame("Pays"=pays_2)
 v1 <- c("SAINT JOHN'S","BUENOS-AIRES","SUCRE (OU LA PAZ)","LA HAVANE","ATHENES","KOWEIT","JERUSALEM-EST","SAINT-DOMINGUE","SRI JAYAWARDENAPURA","DOUCHANBE","FANAFUTI")
-v2 <- c("SAINT JOHN","BUENOS AIRES","LA PAZ","HAVANA","ATH?NES","KOWE?T","JERUSALEM EST","SANTO DOMINGO","KOTTE","DOUCHANB?","FUNAFUTI")
+v2 <- c("SAINT JOHN","BUENOS AIRES","LA PAZ","HAVANA","ATHÈNES","KOWEÏT","JERUSALEM EST","SANTO DOMINGO","KOTTE","DOUCHANBÉ","FUNAFUTI")
 capitals_2 <- remplacer.nom.pays(v1,v2,capitals_2)
 collecte.pays.capitals$Capitals <- capitals_2
 
@@ -79,7 +79,7 @@ collecte <- merge(collecte.pays.capitals,information.pays,by.x = "Pays", by.y = 
 #Suppression des pays ne possedant pas assez d'informations significatives 
 collecte <- collecte[-c(160,163,166,193,199:256),]
 
-## Cr?ation de la fonction pour l'utilisation api openweather et la collecte des informations necessaires
+## Création de la fonction pour l'utilisation api openweather et la collecte des informations necessaires
 api.Data <- function(n){
   url_api  <- paste("http://api.openweathermap.org/data/2.5/weather?q=",n,"&units=metric&appid=9ada210033e2363be58a9fac5b682c4f&lang=fr",sep="")
   api_data <- fromJSON(url_api)
@@ -124,15 +124,15 @@ api.Data <- function(n){
            "humidity"=humidity,"type_temps"=temps))
 }
 
-#Creation de la df qui contiendra les inforamtions retourn?es par l'appelle de la fonction api.data
+#Creation de la df qui contiendra les inforamtions retournées par l'appelle de la fonction api.data
 collecte.api <- data.frame(matrix(1,1,8))
-#Application de la fonction api.data sur l'ensemble des capitales pr?sente dans df collecte
+#Application de la fonction api.data sur l'ensemble des capitales présente dans df collecte
 for(i in collecte$Capitals[1:194])
   collecte.api <- rbind(collecte.api,api.Data(i))
 
-#Suppression de la premiere ligne utilis?e pour initialiser la df collecte.api
+#Suppression de la premiere ligne utilisée pour initialiser la df collecte.api
 collecte.api <- collecte.api[-1,]
-#Renommage des colonnes de la df en vue de faciliter la compr?hension et la jointure qui va suivre
+#Renommage des colonnes de la df en vue de faciliter la compréhension et la jointure qui va suivre
 colnames(collecte.api) <- c("Capitals","Longitude","Latitude","Temp_actu","Temp_max","Temp_min","Humidity","Type_temps")
 
 #Jointure entre la df collecte et la df collecte.api
@@ -148,5 +148,3 @@ collecte$Temp_max <- as.numeric(collecte$Temp_max)
 collecte$Temp_min <- as.numeric(collecte$Temp_min)
 head(collecte, 8)
 collecte <- as_tibble(rownames_to_column(collecte))
-
-
