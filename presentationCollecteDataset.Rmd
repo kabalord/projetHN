@@ -60,7 +60,7 @@ collecte.Data <- function(n, session1){
 
 ```
 
-## Creation de la premiere df pour la jointure
+## Creation de la premiere dataframe pour la jointure
 
 ### Utilisation du webscrapping pour la recupération d'information sur le site ci dessous
 ```{r}
