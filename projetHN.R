@@ -135,7 +135,7 @@ api.Data <- function(n){
            "humidity"=humidity,"type_temps"=temps))
 }
 
-#Creation de la df qui contiendra les inforamtions retournées par l'appelle de la fonction api.data
+#Creation de la df qui contiendra les informations retournées par l'appelle de la fonction api.data
 collecte.api <- data.frame(matrix(1,1,8))
 #Application de la fonction api.data sur l'ensemble des capitales présente dans df collecte
 for(i in collecte$Capitals[1:194])
