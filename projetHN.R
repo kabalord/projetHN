@@ -159,3 +159,6 @@ collecte$Temp_max <- as.numeric(collecte$Temp_max)
 collecte$Temp_min <- as.numeric(collecte$Temp_min)
 head(collecte, 8)
 collecte <- as_tibble(rownames_to_column(collecte))
+
+#Exportation fichier .csv
+write_csv(collecte,"/Users/walterroaserrano/Desktop/UniversiteChampagneArdenne/projetHN/collecte.csv")
