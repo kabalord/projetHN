@@ -80,7 +80,7 @@ pays_2 <- remplacer.nom.pays(v1,v2,pays_2)
 
 #Creation de la deuxieme df contenant les pays et leur capitale
 collecte.pays.capitals <- data.frame("Pays"=pays_2)
-v1 <- c("SAINT JOHN'S","BUENOS-AIRES","SUCRE (OU LA PAZ)","LA HAVANE","ATHENES","KOWEIT","JERUSALEM-EST","SAINT-DOMINGUE","SRI JAYAWARDENAPURA","DOUCHANBE","FANAFUTI")
+v1 <- c("SAINT JOHN’S","BUENOS-AIRES","SUCRE (OU LA PAZ)","LA HAVANE","ATHENES","KOWEIT","JERUSALEM-EST","SAINT-DOMINGUE","SRI JAYAWARDENAPURA","DOUCHANBE","FANAFUTI")
 v2 <- c("SAINT JOHN","BUENOS AIRES","LA PAZ","HAVANA","ATHÈNES","KOWEÏT","JERUSALEM EST","SANTO DOMINGO","KOTTE","DOUCHANBÉ","FUNAFUTI")
 capitals_2 <- remplacer.nom.pays(v1,v2,capitals_2)
 collecte.pays.capitals$Capitals <- capitals_2
