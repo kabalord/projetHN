@@ -58,8 +58,7 @@ for(i in table_name)
   information.pays <- merge(information.pays,collecte.Data(i),by.x = "Pays", by.y = "Pays", all = TRUE)
 
 #Renommer les colonnes de information.pays
-colnames(information.pays) <- c("Pays","Continent","Esperance_vie","Mortalite_inf","Indice_perf_env","Mortalite",
-                                "tourisme","pib-par-habitant","Natalite","Superficie")
+colnames(information.pays) <- c("Pays","Continent","Esperance_vie","Mortalite_inf","Indice_perf_env","Mortalite","Tourisme","Pib-par-habitant","Natalite","Superficie")
 
 
 ##Creation de la deuxieme df pour la jointure
