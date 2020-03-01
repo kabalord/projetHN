@@ -52,9 +52,9 @@ collecte.Data <- function(n, session1){
   # Make our intentions known to the website
   session1 <- bow(url="https://www.populationdata.net/palmares/", user_agent="Étudiants à l'université de Reims Champagne Ardenne",force=TRUE)
   url.fonction <- paste("https://www.populationdata.net/palmares/",n,"/",sep="")
-  populationdata <- nod(session1, url.fonction) %>% scrape(verbose = TRUE)
-  pays.fonction <- str_to_upper(delete.accent(populationdata %>% html_nodes('td:nth-child(2)') %>% html_text()))
-  info.fonction <- as.double(sub(",",".",gsub("[^0-9{,}]","",delete.accent(populationdata %>% html_nodes('td:nth-child(4)') %>% html_text()))))
+  url.fonction <- nod(session1, url.fonction) %>% scrape(verbose = TRUE)
+  pays.fonction <- str_to_upper(delete.accent(url.fonction %>% html_nodes('td:nth-child(2)') %>% html_text()))
+  info.fonction <- as.double(sub(",",".",gsub("[^0-9{,}]","",delete.accent(url.fonction %>% html_nodes('td:nth-child(4)') %>% html_text()))))
   return(data.frame("Pays"=pays.fonction,"Info"=info.fonction))
 }
 
@@ -121,7 +121,7 @@ pays_2 <- remplacer.nom.pays(v1,v2,pays_2)
 ### Creation de la deuxieme df contenant les pays et leur capitale
 ```{r}
 collecte.pays.capitals <- data.frame("Pays"=pays_2)
-v1 <- c("SAINT JOHN'S","BUENOS-AIRES","SUCRE (OU LA PAZ)","LA HAVANE","ATHENES","KOWEIT","JERUSALEM-EST","SAINT-DOMINGUE","SRI JAYAWARDENAPURA","DOUCHANBE","FANAFUTI")
+v1 <- c("SAINT JOHN’S","BUENOS-AIRES","SUCRE (OU LA PAZ)","LA HAVANE","ATHENES","KOWEIT","JERUSALEM-EST","SAINT-DOMINGUE","SRI JAYAWARDENAPURA","DOUCHANBE","FANAFUTI")
 v2 <- c("SAINT JOHN","BUENOS AIRES","LA PAZ","HAVANA","ATHÈNES","KOWEÏT","JERUSALEM EST","SANTO DOMINGO","KOTTE","DOUCHANBÉ","FUNAFUTI")
 capitals_2 <- remplacer.nom.pays(v1,v2,capitals_2)
 collecte.pays.capitals$Capitals <- capitals_2
