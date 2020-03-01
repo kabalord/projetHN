@@ -19,9 +19,9 @@ collecte.Data <- function(n, session1){
   # Make our intentions known to the website
   session1 <- bow(url="https://www.populationdata.net/palmares/", user_agent="Étudiants à l'université de Reims Champagne Ardenne",force=TRUE)
   url.fonction <- paste("https://www.populationdata.net/palmares/",n,"/",sep="")
-  populationdata <- nod(session1, url.fonction) %>% scrape(verbose = TRUE)
-  pays.fonction <- str_to_upper(delete.accent(populationdata %>% html_nodes('td:nth-child(2)') %>% html_text()))
-  info.fonction <- as.double(sub(",",".",gsub("[^0-9{,}]","",delete.accent(populationdata %>% html_nodes('td:nth-child(4)') %>% html_text()))))
+  url.fonction <- nod(session1, url.fonction) %>% scrape(verbose = TRUE)
+  pays.fonction <- str_to_upper(delete.accent(url.fonction %>% html_nodes('td:nth-child(2)') %>% html_text()))
+  info.fonction <- as.double(sub(",",".",gsub("[^0-9{,}]","",delete.accent(url.fonction %>% html_nodes('td:nth-child(4)') %>% html_text()))))
   return(data.frame("Pays"=pays.fonction,"Info"=info.fonction))
 }
 
