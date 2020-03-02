@@ -1,7 +1,6 @@
 install.packages(c("tidyverse","xml2","rvest","jsonlite","polite"))
 
 library(tidyverse)
-library(xml2)
 library(rvest)
 library(jsonlite)
 library(polite)
